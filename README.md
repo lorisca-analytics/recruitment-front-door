@@ -160,7 +160,7 @@ The original ran for several hiring seasons. It worked, and it broke in specific
 | Candidate card PDFs went to a folder shared by link | The cards folder keeps its own sharing. Share it with the hiring team only. The code never makes a file public |
 | Several scripts wrote to the sheet at once, each from its own read | Every writer takes the same document lock, so a check import and the email run can't overwrite each other |
 
-The design choices behind these fixes, with what each one gives up, are in [DECISIONS.md](DECISIONS.md).
+The design choices behind these fixes, with what each one gives up, are in [DECISIONS.md](DECISIONS.md). Where each claim in this README comes from is in [evidence.md](evidence.md).
 
 ## What's next
 

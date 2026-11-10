@@ -1,0 +1,30 @@
+{
+  "id": "recruitment-front-door",
+  "repo": "lorisca-analytics/recruitment-front-door",
+  "title": "The recruitment front door",
+  "status": "draft",
+  "group": "work",
+  "hook": "Every screened candidate, from every portal, through one door. Then fixed rules decide eligibility on paper, and the interview decides selection.",
+  "metric": "Hiring turnaround about -80%",
+  "trace": {
+    "problem": "Many portals, many shapes, re-typed by hand",
+    "move": "One door, one record per person",
+    "result": "-80% hiring turnaround"
+  },
+  "body": {
+    "problem": "Each job portal handed screened candidates over in its own shape. Recruiters re-typed each one into trackers, the same person often showed up twice, and eligibility was judged by reading CVs.",
+    "approach": "Recruiters sent every screened candidate the same form link. Repeat registrations were caught by email, WhatsApp number, or name plus birth date. Fixed rules settled eligibility on paper, and each eligible candidate got a one-page case file for the interview.",
+    "hers": "I designed and ran this system at a bank in Indonesia. This repo is a rewrite from scratch with synthetic data.",
+    "result": "10,000+ CVs a year came through the one door. Hiring turnaround dropped about 80% and admin work about 60%."
+  },
+  "tools": ["Google Sheets", "Apps Script", "TypeScript", "Jest"],
+  "links": [
+    { "label": "Repo", "url": "https://github.com/lorisca-analytics/recruitment-front-door", "kind": "github" }
+  ],
+  "visual": "docs/candidate-card.png",
+  "visualAlt": "Sample one-page candidate card with the decision trail and probe points",
+  "reviewNotes": {
+    "notes": ["Repo owner lorisca-analytics is the Oct 10 recommendation. Lori confirms owner at gate B."],
+    "missing": []
+  }
+}
