@@ -1,0 +1,9 @@
+Reg ID,Full name,Date of birth,WhatsApp,Email,Highest education,Came through,Also came via,Status,Duplicate of
+DEMO-0039,Fajar Pratama,1986-01-04,6200082722813,fajar.pratama.168@example.com,Diploma 3,Job portal A,Job portal C,PAPER_REJECT,
+DEMO-0172,Fajar Pratama,1986-01-04,6200082722813,fajar.pratama.180@example.com,Diploma 3,Job portal C,,DUPLICATE,DEMO-0039
+DEMO-0001,Lestari Anggraini,1999-06-14,6200092218231,lestari.anggraini.215@example.com,Diploma 1-2,Job portal A,,PAPER_REJECT,
+DEMO-0002,Hendra Anggraini,2006-09-04,6200068578878,hendra.anggraini.80@example.com,Bachelor,Job portal A,,PAPER_REJECT,
+DEMO-0006,Ayu Anggraini,1987-08-08,6200078874900,ayu.anggraini.381@example.com,Bachelor,Job portal B,,PAPER_REJECT,
+DEMO-0009,Dimas Saputra,2001-06-25,6200097694739,dimas.saputra.263@example.com,Master,Job portal B,,INTERVIEW_NOT_OK,
+DEMO-0003,Agus Purnama,2004-09-01,6200095271105,agus.purnama.105@example.com,Diploma 3,Job portal C,,NO_SHOW,
+DEMO-0007,Wahyu Rahayu,1998-11-28,6200078199990,wahyu.rahayu.119@example.com,Master,Job portal C,,PAPER_REJECT,

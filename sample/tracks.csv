@@ -1,0 +1,4 @@
+Code,Label,Min education,Min age,Max age,Min GPA,Needs sales licence,Allows active students,Zone colour,Seating area
+SALES,Sales Officer,Diploma 3,20,30,2.75,No,No,Red,Left
+TRAINEE,Sales Trainee Programme,Bachelor,20,26,3,No,No,Pink,Centre
+ADVISOR,Insurance Advisor,Diploma 3,21,35,,Yes,No,Blue,Right

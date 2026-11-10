@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --bg:#f5f7fa; --ink:#1f2a37; --muted:#5b6b80; --line:#d5dde8; --accent:#3d5a99; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); color:var(--ink); }
+  main { max-width:520px; margin:0 auto; padding:32px 16px; }
+  h1 { font-size:20px; margin:0 0 4px; }
+  p.sub { margin:0 0 24px; color:var(--muted); font-size:14px; }
+  form { display:flex; gap:8px; }
+  input { flex:1; font-size:24px; padding:12px 14px; border:1px solid var(--line); border-radius:8px; letter-spacing:2px; }
+  button { font-size:16px; padding:0 20px; border:0; border-radius:8px; background:var(--accent); color:#fff; cursor:pointer; }
+  #out { margin-top:24px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:20px; }
+  .hello { font-size:26px; font-weight:700; margin:0 0 4px; }
+  .tag { display:inline-block; padding:6px 14px; border-radius:999px; color:#fff; font-weight:700; margin:12px 0 8px; }
+  .row { display:flex; justify-content:space-between; padding:8px 0; border-top:1px solid var(--line); font-size:15px; }
+  .row span:first-child { color:var(--muted); }
+  .warn { background:#fff7e6; border-color:#f0d9a8; }
+  .err { background:#fdeeee; border-color:#efc4c4; }
+  .zone-Red { background:#c0392b; } .zone-Pink { background:#c2457a; } .zone-Blue { background:#2e6bb8; }
+  .zone-Green { background:#2f8f5b; } .zone-Orange { background:#d0791c; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Check-in</h1>
+  <p class="sub">Type the candidate's registration number. The digits are enough.</p>
+  <form id="f" autocomplete="off">
+    <input id="code" inputmode="numeric" placeholder="e.g. 17" autofocus>
+    <button>Check in</button>
+  </form>
+  <div id="out" aria-live="polite"></div>
+</main>
+<script>
+  var out = document.getElementById('out');
+  var input = document.getElementById('code');
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function show(r) {
+    if (!r.ok) { out.innerHTML = '<div class="card err">' + esc(r.reason) + '</div>'; return; }
+    out.innerHTML =
+      '<div class="card' + (r.alreadyCheckedIn ? ' warn' : '') + '">' +
+      (r.alreadyCheckedIn ? '<p>Already checked in earlier.</p>' : '') +
+      '<p class="hello">Welcome, ' + esc(r.firstName) + '</p>' +
+      '<span class="tag zone-' + esc(r.zoneColour) + '">Take a ' + esc(r.zoneColour) + ' tag</span>' +
+      '<div class="row"><span>Sit in</span><span>' + esc(r.seatingArea) + ' area</span></div>' +
+      '<div class="row"><span>Track</span><span>' + esc(r.trackLabel) + '</span></div>' +
+      '<div class="row"><span>Number</span><span>' + esc(r.regId) + '</span></div>' +
+      (r.desk ? '<div class="row"><span>Desk</span><span>' + esc(r.desk) + '</span></div>' : '') +
+      '</div>';
+  }
+  document.getElementById('f').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var typed = input.value;
+    out.innerHTML = '<div class="card">Looking up...</div>';
+    if (window.google && google.script && google.script.run) {
+      google.script.run.withSuccessHandler(show)
+        .withFailureHandler(function (err) { show({ ok: false, reason: err.message }); })
+        .checkIn(typed);
+    } else {
+      show(window.demoCheckIn(typed)); // static demo, see docs/demo
+    }
+    input.value = '';
+    input.focus();
+  });
+</script>
+</body>
+</html>

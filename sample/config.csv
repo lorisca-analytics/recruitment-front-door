@@ -1,0 +1,17 @@
+Key,Value
+ID prefix,DEMO
+ID digits,4
+Event name,Demo Mass Interview Day
+Event date,2026-03-14
+Event time,08:30
+Venue line 1,"Hall B, Demo Training Centre"
+Venue line 2,Demo City
+Candidates per desk,10
+Max per online session,50
+Max emails per run,20
+Documents inbox,documents@example.com
+Attendance form URL,https://example.com/confirm
+Inbox mode,MOCK
+Gmail label,
+Documents folder ID,
+Card folder ID,
