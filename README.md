@@ -71,10 +71,12 @@ The rules are the role's requirements as set by the business and by banking regu
 In code there is one status column, and it can only move along fixed edges. `PAPER_REJECT` has no way out:
 
 ```ts
-PAPER_REJECT: [],   // no edges out. A strong interview cannot undo a hard-rule failure.
+// PAPER_REJECT has no way out. That is the rule the whole design rests on:
+// a hard-rule rejection cannot be reversed by someone who likes the candidate.
+PAPER_REJECT: [],
 ```
 
-Every change the code makes goes through these rules ([status.test.ts](tests/status.test.ts)). Staff type some statuses by hand, such as interview results. An edit check covers those. An illegal move, like a paper rejection straight to INVITED, reverts, and the row says why. Changing a rule on the Tracks tab only affects candidates who are still undecided, so the rules don't shift halfway through a hiring round.
+Every change the code makes goes through these rules ([status.test.ts](tests/status.test.ts)). Staff type some statuses by hand, such as interview results. An edit check covers those. An illegal move, like a paper rejection straight to INVITED, reverts, and the row says why. A status pasted as a block can't be checked this way, so the row is flagged and staff change it one cell at a time. Changing a rule on the Tracks tab only affects candidates who are still undecided, so the rules don't shift halfway through a hiring round.
 
 ### A decision trail for every candidate
 
