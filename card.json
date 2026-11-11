@@ -2,7 +2,7 @@
   "id": "recruitment-front-door",
   "repo": "lorisca-analytics/recruitment-front-door",
   "title": "The recruitment front door",
-  "status": "draft",
+  "status": "live",
   "group": "work",
   "hook": "Every screened candidate, from every portal, through one door. Then fixed rules decide eligibility on paper, and the interview decides selection.",
   "metric": "Hiring turnaround about -80%",
@@ -21,10 +21,10 @@
   "links": [
     { "label": "Repo", "url": "https://github.com/lorisca-analytics/recruitment-front-door", "kind": "github" }
   ],
-  "visual": "docs/candidate-card.png",
+  "visual": "https://raw.githubusercontent.com/lorisca-analytics/recruitment-front-door/main/docs/candidate-card.png",
   "visualAlt": "Sample one-page candidate card with the decision trail and probe points",
   "reviewNotes": {
-    "notes": ["Repo owner lorisca-analytics is the Oct 10 recommendation. Lori confirms owner at gate B."],
+    "notes": ["Owner lorisca-analytics confirmed by Lori at gate B, Nov 10. Public on her word, Nov 10."],
     "missing": []
   }
 }
