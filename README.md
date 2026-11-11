@@ -20,9 +20,9 @@ flowchart LR
   end
 ```
 
-**In production:** 10,000+ CVs a year came through the one door. Hiring turnaround dropped about 80% and admin work about 60%. We ran daily online interview sessions of 40 to 50 candidates, plus multi-city walk-in interview days.
+**In production:** 10,000+ CVs a year came through the one door. We ran daily online interview sessions of 40 to 50 candidates, plus multi-city mass interview events.
 
-**What this repo can and can't show:** it rebuilds how the system worked, module by module, and tests each rule. It can't re-measure the results above, because the data here is synthetic. Those figures come from the real operation.
+**What this repo can and can't show:** it rebuilds how the system worked, module by module, and tests each rule. It can't re-measure results from the real operation, because the data here is synthetic.
 
 ---
 
@@ -59,7 +59,7 @@ A visa office handles huge volume with a small staff, and it still treats each a
 |---|---|---|---|
 | 1 | One standard application form | The one door. Every screened candidate fills the same structured form | [door](src/core/door.ts), [IDs](src/core/ids.ts) |
 | 2 | The file is checked against fixed requirements | **Eligibility on paper.** Hard rules decide who may be interviewed. No one can override them, however strong the candidate looks | [screening gate](src/core/screening.ts), [status rules](src/core/status.ts) |
-| 3 | The officer reads a standard case file | **One-glance case file.** Each candidate's answers become the same one-page card, so an interviewer can work through about 10 in a session | [candidate card](src/core/card.ts) |
+| 3 | The officer reads a standard case file | **One-glance case file.** Each candidate's answers become the same one-page card, so an interviewer can review about 10 at a glance | [candidate card](src/core/card.ts) |
 | 4 | The interview decides | **Selection at the interview.** The card lists probe points from this candidate's own record. There is no fixed question script | [probe points](src/core/card.ts) |
 
 Most eligibility outcomes are known before anyone meets the candidate. Interview time goes to choosing among people who already qualify.
@@ -149,7 +149,7 @@ The tests run on every push. The Apps Script layer is tested too. [gas-flow.test
 
 ## What the rebuild fixes
 
-The original ran for several hiring seasons. A review of its sheets and scripts found specific weak spots. The rebuild fixes those.
+The original ran for several hiring seasons. Over that time the recruitment SLA dropped about 80% and admin work about 60%. A review of its sheets and scripts also found specific weak spots. The rebuild fixes those.
 
 | In the original | In this rebuild |
 |---|---|

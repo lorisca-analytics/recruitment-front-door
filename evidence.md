@@ -6,8 +6,8 @@ How the problem was solved, and why each call was made. The design choices, with
 
 | Claim in the README | Where it comes from |
 |---|---|
-| 10,000+ CVs a year, hiring turnaround about 80% lower, admin work about 60% lower | My own record of the real operation. The data here is synthetic, so this repo can't re-measure them |
-| Daily online sessions of 40 to 50 candidates, multi-city walk-in interview days | The real operation |
+| 10,000+ CVs a year, recruitment SLA about 80% lower, admin work about 60% lower | My own record of the real operation. The data here is synthetic, so this repo can't re-measure them |
+| Daily online sessions of 40 to 50 candidates, multi-city mass interview events | The real operation |
 | Recruiters sent the form link, the form recorded the portal, repeat registrations across portals were caught | My original design. The rebuild re-implements it in [door.ts](src/core/door.ts) |
 | Each rule and module behaves as described | The tests in [tests/](tests/), run on every push |
 | Example candidates, portal export shapes, funnel ratios | Synthetic, made by [seed.ts](scripts/seed.ts) and [before-after.ts](scripts/before-after.ts) with a fixed seed |
