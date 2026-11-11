@@ -20,7 +20,7 @@ flowchart LR
   end
 ```
 
-**In production:** 10,000+ CVs a year came through the one door. We ran daily online interview sessions of 40 to 50 candidates, plus multi-city mass interview events.
+**In production:** 10,000+ CVs a year came through the one door. I ran daily online interview sessions of 40 to 50 candidates, plus multi-city mass interview events.
 
 **What this repo can and can't show:** it rebuilds how the system worked, module by module, and tests each rule. It can't re-measure results from the real operation, because the data here is synthetic.
 
