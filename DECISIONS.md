@@ -6,14 +6,14 @@ The design choices in this rebuild, with the options I weighed and what each cho
 
 - Options: a hiring tool (ATS), a small web app with a database, or Google Sheets with Apps Script.
 - Picked: Sheets with Apps Script.
-- Why: the team had to run it without me, and the bank already worked in Google Workspace. A sheet everyone could open beat a tool nobody had access to.
+- Why: the team had to run it without me. The system already ran on Google Forms, Sheets and Apps Script, and a sheet is something everyone on the team could open.
 - Given up: access tiers, a retention policy and real database constraints. Apps Script also has daily quotas, so the email sender has to stop and resume (decision 6). The logic in `src/core` has no Google dependency, so it can move to a database later.
 
 ## 2. One door, with repeat registrations caught at the door
 
 - Options: take each portal's export as it came and clean it later, or send every screened candidate the same form and match repeats on entry.
 - Picked: one form for everyone. A second registration is matched to the first by email, WhatsApp number, or name plus birth date ([door.ts](src/core/door.ts)).
-- Why: the same person often passed screening on two portals. One record per person means one ID, one set of emails and one place to look.
+- Why: the same person could pass screening on two portals. One record per person means one ID, one set of emails and one place to look.
 - Given up: any single match is enough, so two different people who share one phone number would be folded into one record. The first record keeps "Also came via", and the duplicate points to it, so staff can see and undo the match.
 - The first registration always wins, and records already marked keep their marking, so the check can run again with no harm.
 
@@ -28,7 +28,7 @@ The design choices in this rebuild, with the options I weighed and what each cho
 
 - Options: fire an email from an edit trigger, or run a job that works out what each candidate is owed.
 - Picked: a time-driven job that reads every row and a send log per candidate ([notify.ts](src/core/notify.ts)).
-- Why: the original edit trigger read only the top row of an edit, so a pasted block of decisions could reach one person. The log records only sends that succeeded, so the job can run again with no double emails.
+- Why: the original edit trigger likely read only the top row of an edit, so a pasted block of decisions could reach one person. The log records only sends that succeeded, so the job can run again with no double emails.
 - Given up: emails go out on the next run (every 10 minutes), not the instant a decision is typed.
 
 ## 5. One document lock for every writer
@@ -56,7 +56,7 @@ The design choices in this rebuild, with the options I weighed and what each cho
 
 - Options: address columns by number and track progress in free-text columns, or find columns by header and keep one status with fixed moves.
 - Picked: header names ([headers.ts](src/core/headers.ts)) and one status column ([status.ts](src/core/status.ts)).
-- Why: in the original, adding one form question shifted every column, and "done", "Done" and TRUE all meant the same thing.
+- Why: in the original, scripts addressed columns by number, and progress was spread over several free-text columns.
 - Given up: renaming a header breaks setup. It fails loudly instead of writing to the wrong column.
 
 ## 9. Check-in as a panel inside the sheet

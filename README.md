@@ -30,9 +30,9 @@ flowchart LR
 
 This system starts after sourcing. Each job portal ran its own first screening. The trouble started when those screened candidates had to enter the hiring operation:
 
-- Every portal handed candidates over in its own shape: different fields, date formats, phone formats, some with a birth date and some with only an age.
+- Every portal handed candidates over in its own export format.
 - Recruiters re-typed each one into trackers before anyone could act.
-- The same person often passed screening on two portals and showed up twice.
+- The same person could pass screening on two portals and show up twice.
 - Eligibility was judged by reading CVs, and interviews ran from a generic script.
 
 ## The design
@@ -66,7 +66,7 @@ Most eligibility outcomes are known before anyone meets the candidate. Interview
 
 ### Hard rules are requirements, applied the same way to everyone
 
-The rules are the role's requirements as set by the business and by banking regulation: minimum education per track, an age range per track, a sales licence where the role needs one, and identity and credit-record checks. They live on a Tracks tab, not in code. The system's job is to apply them the same way every time, so no recruiter has to make an exception call, and no candidate is turned down for a reason nobody can name.
+The rules are the role's requirements as set by the business and by banking regulation, such as minimum education per track and background checks. In the rebuild they live on a Tracks tab, not in code. The system's job is to apply them the same way every time, so no recruiter has to make an exception call, and no candidate is turned down for a reason nobody can name.
 
 In code there is one status column, and it can only move along fixed edges. `PAPER_REJECT` has no way out:
 
@@ -94,7 +94,7 @@ This candidate came through a campus job fair and registered again through Job p
 
 ### Why Google Sheets
 
-The team had to run this without me. The bank already worked in Google Workspace, so a sheet everyone could open beat a tool nobody had access to. Apps Script added what a sheet can't do on its own: locking, emails, triggers, a check-in panel and PDF export. The team kept running the system after I left. At a larger scale I would move the records to a database with access tiers and a retention policy. The logic in `src/core` has no Google dependency, so it would carry over unchanged.
+The team had to run this without me. The system already ran on Google Forms, Sheets and Apps Script, and a sheet is something everyone on the team could open. Apps Script added what a sheet can't do on its own: locking, emails, triggers, a check-in panel and PDF export. The team kept running the system after I left. At a larger scale I would move the records to a database with access tiers and a retention policy. The logic in `src/core` has no Google dependency, so it would carry over unchanged.
 
 ---
 
@@ -147,20 +147,18 @@ The tests run on every push. The Apps Script layer is tested too. [gas-flow.test
 
 ---
 
-## What changed from the version I ran
+## What the rebuild fixes
 
-The original ran for several hiring seasons. It worked, and it broke in specific ways. The rebuild fixes those.
+The original ran for several hiring seasons. A review of its sheets and scripts found specific weak spots. The rebuild fixes those.
 
 | In the original | In this rebuild |
 |---|---|
 | Scripts addressed columns by number. Adding one form question shifted everything | Columns are found by header name ([headers.ts](src/core/headers.ts)). A missing header fails loudly at setup |
-| Decision emails fired from an edit trigger that read only the top row of an edit. Pasting a block of decisions could reach just one person | A sender job checks every row each run. The send log makes it safe to rerun ([notify.test.ts](tests/notify.test.ts) pastes 30 at once) |
-| Two ID formats ended up in use side by side, which broke lookups between tabs | One format. Every input is parsed back to it |
-| Progress was spread over several free-text columns, where "done", "Done" and TRUE all meant the same thing | One status column with fixed allowed moves |
-| Rejected candidates were still asked to email their ID card first | Hard rules run on the form data straight away. Those who fail are told at once, and no ID card is collected from them |
-| Event details were edited inside the code, and each event copied the whole sheet | Event details, tracks and desks live on Config, Tracks and Desks tabs |
+| Decision emails fired from an edit trigger that likely read only the top row of an edit. Pasting a block of decisions could reach just one person | A sender job checks every row each run. The send log makes it safe to rerun ([notify.test.ts](tests/notify.test.ts) pastes 30 at once) |
+| Two ID formats ended up in use side by side | One format. Every input is parsed back to it |
+| Progress was spread over several free-text columns | One status column with fixed allowed moves |
+| Each city event ran on its own set of forms and sheets | Event details, tracks and desks live on Config, Tracks and Desks tabs |
 | Candidate card PDFs went to a folder shared by link | The cards folder keeps its own sharing. Share it with the hiring team only. The code never makes a file public |
-| Several scripts wrote to the sheet at once, each from its own read | Every writer takes the same document lock, so a check import and the email run can't overwrite each other |
 
 The design choices behind these fixes, with what each one gives up, are in [DECISIONS.md](DECISIONS.md). Where each claim in this README comes from is in [evidence.md](evidence.md).
 

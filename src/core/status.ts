@@ -1,7 +1,7 @@
 import { Status } from './types';
 
 // One status column, moved only along these edges. This replaces several
-// free-text tracking columns where "done", "Done" and TRUE all meant the same thing.
+// free-text tracking columns.
 //
 // PAPER_REJECT has no way out. That is the rule the whole design rests on:
 // a hard-rule rejection cannot be reversed by someone who likes the candidate.
